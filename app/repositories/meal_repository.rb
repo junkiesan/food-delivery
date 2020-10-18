@@ -1,4 +1,5 @@
 # 'Meal' Repository
+require 'csv'
 class MealRepository
   def initialize(csv_filepath)
     @csv_filepath = csv_filepath
