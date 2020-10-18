@@ -1,20 +1,28 @@
-require_relative "../models/meal.rb"
-# Require view 
-
+require_relative '../models/meal.rb'
+require_relative '../views/meal_view.rb'
+# `Meal` controller
 class MealsController
-  attr_accessor :mealrepository
-  def initialize(mealrepository)
-    @mealrepository = mealrepository
+  attr_accessor :meal_repository
+  def initialize(meal_repository)
+    @meal_repository = meal_repository
+    @meal_view = MealView.new
   end
 
   def add
-    name = gets.chomp
-    price = gets.chomp.to_i
+    name = @meal_view.ask_for('name')
+    price = @meal_view.ask_for('price').to_i
     meal = Meal.new(name: name, price: price)
-    @mealrepository.add(meal)
+    @meal_repository.add(meal)
   end
 
   def list
-    Meal.all
+    display_meals
+  end
+
+  private
+
+  def display_meals
+    list = @meal_repository.all
+    @meal_view.display_list(list)
   end
 end

@@ -1,7 +1,6 @@
-# 'Meal' Repository
 require 'csv'
 require_relative '../models/meal'
-
+# 'Meal' Repository
 class MealRepository
   def initialize(csv_filepath)
     @csv_filepath = csv_filepath
@@ -14,7 +13,7 @@ class MealRepository
     @meals
   end
 
-  def create(meal)
+  def add(meal)
     meal.id = @next_id
     @meals << meal
     @next_id += 1
@@ -27,12 +26,12 @@ class MealRepository
 
   def load_csv
     csv_options = { headers: :first_row, header_converters: :symbol }
-      CSV.foreach(@csv_filepath, csv_options) do |row|
-        row[:id]    = row[:id].to_i
-        row[:price] = row[:price].to_i
-        @meals << Meal.new(row)
-      end
-      @next_id = @meals.last.id + 1 unless @meals.empty?
+    CSV.foreach(@csv_filepath, csv_options) do |row|
+      row[:id]    = row[:id].to_i
+      row[:price] = row[:price].to_i
+      @meals << Meal.new(row)
+    end
+    @next_id = @meals.last.id + 1 unless @meals.empty?
   end
 
   def save_to_csv
