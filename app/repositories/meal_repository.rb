@@ -1,12 +1,13 @@
 # 'Meal' Repository
 require 'csv'
+require_relative '../models/meal'
+
 class MealRepository
   def initialize(csv_filepath)
     @csv_filepath = csv_filepath
     @meals        = []
     @next_id      = 1
-    @csv_options  = { headers: :first_row, header_converters: :symbol }
-    load_csv
+    load_csv if File.exist?(@csv_filepath)
   end
 
   def all
@@ -25,15 +26,13 @@ class MealRepository
   end
 
   def load_csv
-    if File.exist?(@csv_filepath)
-      CSV.foreach(@csv_filepath, @csv_options) do |row|
+    csv_options = { headers: :first_row, header_converters: :symbol }
+      CSV.foreach(@csv_filepath, csv_options) do |row|
         row[:id]    = row[:id].to_i
         row[:price] = row[:price].to_i
         @meals << Meal.new(row)
       end
       @next_id = @meals.last.id + 1 unless @meals.empty?
-    else puts "Sorry mate, file doesn't exist!"
-    end
   end
 
   def save_to_csv

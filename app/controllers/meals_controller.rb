@@ -1,3 +1,5 @@
+require_relative "../models/meal.rb"
+
 class MealsController
 
   def initialize(mealrepository)
