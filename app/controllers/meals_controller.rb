@@ -8,7 +8,7 @@ class MealsController
     name = gets.chomp
     price =
     meal = gets.chomp
-    @mealrepository.push(meal)
+    @mealrepository.add(meal)
   end
 
   def list
