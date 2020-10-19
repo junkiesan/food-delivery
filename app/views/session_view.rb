@@ -7,10 +7,10 @@ class SessionView
   end
 
   def print_wrong_credentials
-    puts "Wrong credentials... Try again"
+    puts 'Wrong credentials... Try again'
   end
 
-  def display(employees)
+  def display_list(employees)
     employees.each_with_index do |employee, index|
       puts "#{index + 1}. #{employee.username}"
     end
