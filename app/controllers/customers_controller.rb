@@ -1,5 +1,5 @@
-require_relative '../views/customer_view.rb'
 require_relative '../models/customer.rb'
+require_relative '../views/customer_view.rb'
 # `Customer` Controller
 class CustomersController
   def initialize(customer_repository)
