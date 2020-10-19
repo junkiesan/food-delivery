@@ -24,15 +24,7 @@ class MealRepository
     @meals.find { |meal| meal.id == id }
   end
 
-  def load_csv
-    csv_options = { headers: :first_row, header_converters: :symbol }
-    CSV.foreach(@csv_filepath, csv_options) do |row|
-      row[:id]    = row[:id].to_i
-      row[:price] = row[:price].to_i
-      @meals << Meal.new(row)
-    end
-    @next_id = @meals.last.id + 1 unless @meals.empty?
-  end
+  private
 
   def save_to_csv
     CSV.open(@csv_filepath, 'wb') do |csv|
@@ -41,5 +33,15 @@ class MealRepository
         csv << [meal.id, meal.name, meal.price]
       end
     end
+  end
+  
+  def load_csv
+    csv_options = { headers: :first_row, header_converters: :symbol }
+    CSV.foreach(@csv_filepath, csv_options) do |row|
+      row[:id]    = row[:id].to_i
+      row[:price] = row[:price].to_i
+      @meals << Meal.new(row)
+    end
+    @next_id = @meals.last.id + 1 unless @meals.empty?
   end
 end
