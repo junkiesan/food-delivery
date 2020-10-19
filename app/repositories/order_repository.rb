@@ -3,12 +3,12 @@ require_relative '../models/order'
 # `Order` Repository
 class OrderRepository
   def initialize(csv_filepath, meal_repository, customer_repository, employee_repository)
-    @csv_filepath        = csv_filepath
-    @meal_repository     = meal_repository
+    @csv_filepath = csv_filepath
+    @orders = []
+    @meal_repository = meal_repository
     @customer_repository = customer_repository
     @employee_repository = employee_repository
-    @orders              = []
-    @next_id             = 1
+    @next_id = 1
     load_csv if File.exist?(@csv_filepath)
   end
 
@@ -31,7 +31,7 @@ class OrderRepository
   def my_undelivered_orders(employee)
     @orders.select { |order| order.employee == employee && !order.delivered? }
   end
-  
+
   private
 
   def load_csv
