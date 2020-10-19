@@ -17,7 +17,7 @@ customer_repository = CustomerRepository.new(CUSTOMERS_CSV_FILE)
 customers_controller = CustomersController.new(customer_repository)
 
 employee_repository = EmployeeRepository.new(EMPLOYEES_CSV_FILE)
-Sessions_controller = SessionsController.new(employee_repository)
+sessions_controller = SessionsController.new(employee_repository)
 
 router = Router.new(meals_controller, customers_controller, sessions_controller)
 
